@@ -1,6 +1,6 @@
 <!-- Please remove this file from your project -->
 <template>
-  <div class="w-full min-h-screen bg-gray-100 sm:items-center sm:pt-0">
+  <div class="w-full min-h-screen bg-gray-100 sm:items-center sm:pt-0 pb-4">
     <Logo class="mx-auto text-center p-4" />
     <hr>
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 mb-4">
