@@ -1,7 +1,12 @@
 <template>
-    <div class="rounded-lg overflow-hidden my-2 shadow w-1/2 mx-auto flex">
-        <input v-model="task.title" type="text" name="company-website" class="flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 p-4 focus:outline-none" placeholder="Take a note..." />
-        <button type="button" class="bg-purple-600 text-white font-bold p-4" @click="saveTask">Save</button>
+    <div class="rounded-lg overflow-hidden my-2 shadow w-3/4 mx-auto flex">
+        <input v-model="task.title" @keyup.enter="saveTask" type="text" name="company-website" class="flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 p-4 focus:outline-none" placeholder="Take a note..." />
+        <button type="button" class="flex items-center gap-4 bg-purple-600 hover:bg-purple-500 text-white font-bold p-4" @click="saveTask">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+            </svg>
+            Save
+        </button>
     </div>
 </template>
 
