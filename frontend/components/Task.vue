@@ -4,7 +4,7 @@
         <span v-if="!editInProgress">
             {{task.title}}
         </span>
-        <input v-if="editInProgress" class="p-4 w-full" ref="taskinput" v-model="updatedTask.title" @blur="updateTask"/>
+        <input v-if="editInProgress" v-model="updatedTask.title" class="p-4 w-full" @blur="updateTask"/>
         </div>
        <div class="w-1/6">
         <button class="bg-green-400 hover:bg-green-500 text-white px-2 py-2 rounded-lg" @click="switchCompletion">
