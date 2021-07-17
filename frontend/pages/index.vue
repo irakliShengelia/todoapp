@@ -1,5 +1,5 @@
 <template>
-  <App :tasks="tasks" @task-changes="refreshTasks"/>
+  <App :tasks="sortedTasks" @task-changes="refreshTasks"/>
 </template>
 
 <script>
@@ -17,6 +17,17 @@ export default {
     return{
       title: "Get things done"
     }
+  },
+  computed: {
+    sortedTasks() {
+      if(this.tasks && this.tasks.length){
+        const taskPlaceholder = [...this.tasks]
+        const sortedTasks = taskPlaceholder.sort((a, b) => b.id - a.id)
+        return sortedTasks
+      }else{
+        return []
+      }
+    },
   },
   methods: {
     async refreshTasks() {
