@@ -1,6 +1,11 @@
 <template>
-    <div class="flex p-4 border-b bg-gray-50 hover:bg-gray-100 items-center" :class="{'opacity-25': task.completed }">
-       <div class="w-5/6">{{task.title}}</div>
+    <div class="flex gap-4 p-4 border-b bg-gray-50 hover:bg-gray-100 items-center" :class="{'opacity-25': task.completed && !editInProgress }">
+       <div class="w-5/6 cursor-pointer" @click="startEdit">
+        <span v-if="!editInProgress">
+            {{task.title}}
+        </span>
+        <input v-if="editInProgress" class="p-4 w-full" ref="taskinput" v-model="updatedTask.title" @blur="updateTask"/>
+        </div>
        <div class="w-1/6">
         <button class="bg-green-400 hover:bg-green-500 text-white px-2 py-2 rounded-lg" @click="switchCompletion">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -29,6 +34,18 @@ export default {
             }
         }
     },
+    data() {
+        return {
+            editInProgress: false,
+            updatedTask: {
+                title: '',
+                completed: false
+            }
+        }
+    },
+    created() {
+        this.updatedTask = {...this.task}
+    },
     methods: {
         async deleteTask(){
             try{
@@ -46,11 +63,27 @@ export default {
                 data.append("completed", !this.task.completed)
                 await this.$axios.patch(`http://localhost:8000/api/task-update/${this.task.id}/`, data)
                 this.$parent.$emit('task-changes')
-                this.$toast.success("Task Changed Succesfully.")
+                this.$toast.success("Task Updated Succesfully.")
             }catch(e){
                 this.$toast.error("Something Went Wrong. " + e.message)
             }
         },
+        async updateTask() {
+            try{
+                const data = new FormData();
+                data.append("title", this.updatedTask.title)
+                data.append("completed", this.updatedTask.completed)
+                await this.$axios.patch(`http://localhost:8000/api/task-update/${this.task.id}/`, data)
+                this.$parent.$emit('task-changes')
+                this.$toast.success("Task Updated Succesfully.")
+                this.editInProgress = false
+            }catch(e){
+                this.$toast.error("Something Went Wrong. " + e.message)
+            }
+        },
+        startEdit() {
+            this.editInProgress = true
+        }
     }
 }
 </script>
