@@ -5,7 +5,9 @@
     <hr>
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
       <NewTask />
-      {{tasks}}
+      <div class="rounded-lg bg-white shadow ">
+        <Task v-for="task in tasks" :key="task.id" :task="task" />
+      </div>
     </div>
   </div>
 </template>
@@ -17,6 +19,6 @@ export default {
       type: Array,
       default: () => []
     }
-  }
+  },
 }
 </script>

@@ -17,11 +17,16 @@ export default {
     },
     methods: {
         async saveTask() {
+            try{
                 const data = new FormData();
                 data.append("title", this.task.title)
-                await this.$axios.post('http://127.0.0.1:8000/api/task-create/', data)
+                await this.$axios.post('http://localhost:8000/api/task-create/', data)
                 this.task.title = ''
+                this.$parent.$emit('task-changes')
                 this.$toast.success("Task Saved.")
+            }catch(e){
+                this.$toast.error("Something Went Wrong. " + e.message)
+            }
         },
 
     }
